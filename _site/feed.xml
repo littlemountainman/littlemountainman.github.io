@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>littlemountainman blog</title>
+    <description>living in the cloud - moving to vr soon</description>
+    <link>http://localhost:4000/</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
+    <pubDate>Mon, 04 May 2020 22:28:04 +0200</pubDate>
+    <lastBuildDate>Mon, 04 May 2020 22:28:04 +0200</lastBuildDate>
+    <generator>Jekyll v4.0.0</generator>
+    
+      <item>
+        <title>Self driving cars are fun!</title>
+        <description>&lt;p&gt;Sourc code can be found &lt;a href=&quot;https://github.com/littlemountainman/selfdrive&quot;&gt;here.&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;At the current state all we can talk about is Level 2 autonomy. Tesla is already doing a pretty good job at developing and actually shipping Level 2 self driving or rather driver assistance systems. A few days ago &lt;a href=&quot;https://twitter.com/karpathy&quot;&gt;@karpathy&lt;/a&gt; presented their workflow with PyTorch and also said some numbers, to train the Autopilot system with all it neural networks you would have to spend 70,000 hours with a decent gpu - that is around 8 years (depending on which GPU you are using). In total the Autopilot is a system of 48 Neural Networks. When we compare this to what I will show you, you are gonna see that this is insane.(Tesla really does a great job). I developed a model for steering, gas and brake for one camera.&lt;/p&gt;
+
+&lt;h2 id=&quot;behavioral-cloning&quot;&gt;Behavioral cloning&lt;/h2&gt;
+&lt;p&gt;At the current state of my model the model basically just clones the human driver as good as possible. That means the the amount of brake is higher in curves and the amount of gas is higher when the car just goes straight, of course it can also steer and it does a pretty good job with controlling the steering wheel in different situations so it steers less when the car is pretty fast and steers more when the car is slower - just as a human driver. I did a few tests where pedestrians where suddenly crossing the road and the model gave it’s best job to not hit the human crossing the road.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-actual-model&quot;&gt;The actual model&lt;/h2&gt;
+&lt;p&gt;When I was first starting this project I started with an extremely large neural network &lt;a href=&quot;https://images.nvidia.com/content/tegra/automotive/images/2016/solutions/pdf/end-to-end-dl-using-px.pdf&quot;&gt;inspired by (page 5)&lt;/a&gt; and it just took ages to train and get the model to a decent level so I trashed that one. So I moved on to this smaller model:&lt;/p&gt;
+&lt;center&gt;
+	&lt;img src=&quot;/assets/smallmodel.png&quot; style=&quot;width:25%;height:25%;&quot; /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;it doesnt seem small but trust me it is. This is the code for it:&lt;/p&gt;
+&lt;pre&gt;
+model = Sequential()
+    
+model.add(Lambda(lambda x: x/127.5 - 1.,input_shape=(image_x, image_y, 3)))
+model.add(BatchNormalization())
+model.add(Convolution2D(16, 8, 8, subsample=(4, 4), border_mode=&quot;same&quot;))
+model.add(ELU())
+model.add(Convolution2D(32, 5, 5, subsample=(2, 2), border_mode=&quot;same&quot;))
+model.add(ELU())
+model.add(Convolution2D(64, 5, 5, subsample=(2, 2), border_mode=&quot;same&quot;))
+model.add(Flatten())
+model.add(Dropout(.1))
+model.add(ELU())
+model.add(Dense(512))
+model.add(Dropout(.2))
+model.add(ELU())
+model.add(Dense(3))
+&lt;/pre&gt;
+
+&lt;p&gt;you see the model got a lot smaller compared to the one in the paper above. The reason is not that I wouldn’t have spent the time training the model but I wanted to run it on a high-end mobile phone. I wanted the model to be as small as possible be run on the less powerful devices of today.&lt;/p&gt;
+
+&lt;h2 id=&quot;data&quot;&gt;Data&lt;/h2&gt;
+&lt;p&gt;The data I used was from my drives and the &lt;a href=&quot;https://github.com/commaai/comma2k19/&quot;&gt;commaai dataset&lt;/a&gt;. I copied together a tool to extract the data from the drive’s log files and to generate files from the one and only camera and the steering angle, gas and brake labels, &lt;a href=&quot;https://github.com/littlemountainman/selfdrive/blob/master/preperation/reader.py&quot;&gt;more here&lt;/a&gt;. This file basically reads the camera file and the log files. The camera file gets turned into a numpy nd-array and saved on the hard drive. The log files are filled with &lt;a href=&quot;https://github.com/littlemountainman/rlog-unzipper#possible-parameters-to-look-for-in-the-file&quot;&gt;car parameters&lt;/a&gt; I was only interested in the actuators so again I extracted them and saved them into a numpy nd-array and saved them. The camera resolution is 640x480 and 3 color channels (RGB).&lt;/p&gt;
+
+&lt;h2 id=&quot;results&quot;&gt;Results&lt;/h2&gt;
+&lt;p&gt;So after a long time of trying things out and throwing them away again. So far with the resources I had for training I am pretty happy with the results. Look at them yourself!&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/littlemountainman/selfdrive/raw/master/drivingman.gif&quot; alt=&quot;driving&quot; /&gt;
+That is just lane keeping so far but it does quite a good job at doing it. It is still a bit weak when wanting to predict the angle when there is an intersection and it doesn’t see the next road and say there is an highway exit.&lt;/p&gt;
+
+&lt;h2 id=&quot;future-goals&quot;&gt;Future goals&lt;/h2&gt;
+&lt;p&gt;I definitely want to improve the project and keep working on it:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Implementing SLAM (Simultaneous localization and mapping), sadly a good slam system is very computing intensive and does not fit in well with running it on a mobile phone.&lt;/li&gt;
+  &lt;li&gt;Traffic light and sign detection. I already have a basic NN for traffic ligths but it is not yet performing the way I would want it to. Traffic signs are really hard since they are different from country to country.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Thank you for reading this little post and for more updates on the project follow me on &lt;a href=&quot;https://twitter.com/littlemtman&quot;&gt;Twitter&lt;/a&gt;.&lt;/p&gt;
+
+</description>
+        <pubDate>Wed, 27 Nov 2019 00:00:00 +0100</pubDate>
+        <link>http://localhost:4000/2019/11/27/selfdrivingfun/</link>
+        <guid isPermaLink="true">http://localhost:4000/2019/11/27/selfdrivingfun/</guid>
+        
+        
+      </item>
+    
+  </channel>
+</rss>
