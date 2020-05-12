@@ -5,6 +5,8 @@ title:  "Openpilot, its model and driving in GTA"
 excerpt: "During the quarantine 2020 I found myself playing GTA V and started working on getting openpilot to work on it"
 ---
 
+If you want this in your real car, check [here](https://comma.ai/shop/products/comma-two-devkit).
+
 ## Introduction
 First off let me give you an introduction about openpilot, openpilot is a open source self driving car software developed by [comma.ai](https://comma.ai/). Openpilot now supports 40 of the most popular cars in the world, inlcuding Toyotas, Hondas, Acuras and many more. Openpilot is a open source project on GitHub made for people to contribute, there are also several bounties for it, that you as a developer can claim in order to get a little reward for your work. It aims to be the Android for self driving cars and this is true already supporting as mentioned above many of the most popular cars in the world.
 
@@ -293,6 +295,8 @@ So lets look at some final results:
 Have a nice day !
 
 Leon 
+
+
 
 
 
