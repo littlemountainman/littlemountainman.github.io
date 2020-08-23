@@ -1,6 +1,5 @@
 ---
 layout: page
-title: Privacy Policy for app
 permalink: /priv/
 ---
 
