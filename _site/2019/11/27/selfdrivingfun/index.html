@@ -6,8 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Self driving cars are fun!</title>
     <meta name="viewport" content="width=device-width">
-    <meta name="description" content="living in the cloud - moving to vr soon">
-    <link rel="canonical" href="http://localhost:4000/2019/11/27/selfdrivingfun/">
+    <meta name="description" content="student, nomadic researcher in machine learning">
+    <link rel="canonical" href="http://littlemountainman.github.io/2019/11/27/selfdrivingfun/">
     <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="littlemountainman blog posts" />
 
     <!-- Custom CSS -->
@@ -123,20 +123,39 @@ model.add(Dense(3))
 <h2 id="results">Results</h2>
 <p>So after a long time of trying things out and throwing them away again. So far with the resources I had for training I am pretty happy with the results. Look at them yourself!</p>
 
-<p><img src="https://github.com/littlemountainman/selfdrive/raw/master/drivingman.gif" alt="driving" />
+<p><img src="https://github.com/littlemountainman/selfdrive/raw/master/drivingman.gif" alt="driving" /><br />
 That is just lane keeping so far but it does quite a good job at doing it. It is still a bit weak when wanting to predict the angle when there is an intersection and it doesn’t see the next road and say there is an highway exit.</p>
 
 <h2 id="future-goals">Future goals</h2>
-<p>I definitely want to improve the project and keep working on it:</p>
-<ul>
-  <li>Implementing SLAM (Simultaneous localization and mapping), sadly a good slam system is very computing intensive and does not fit in well with running it on a mobile phone.</li>
-  <li>Traffic light and sign detection. I already have a basic NN for traffic ligths but it is not yet performing the way I would want it to. Traffic signs are really hard since they are different from country to country.</li>
-</ul>
+<p>I definitely want to improve the project and keep working on it:<br />
+- Implementing SLAM (Simultaneous localization and mapping), sadly a good slam system is very computing intensive and does not fit in well with running it on a mobile phone. <br />
+- Traffic light and sign detection. I already have a basic NN for traffic ligths but it is not yet performing the way I would want it to. Traffic signs are really hard since they are different from country to country.</p>
 
 <p>Thank you for reading this little post and for more updates on the project follow me on <a href="https://twitter.com/littlemtman">Twitter</a>.</p>
 
 
   </article>
+
+  <div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://littlemountainman.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 
   <!-- mathjax -->
   
@@ -201,7 +220,7 @@ That is just lane keeping so far but it does quite a good job at doing it. It is
     </div>
 
     <div class="footer-col-3 column">
-      <p class="text">living in the cloud - moving to vr soon</p>
+      <p class="text">student, nomadic researcher in machine learning</p>
     </div>
 
   </div>

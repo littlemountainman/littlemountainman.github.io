@@ -2,16 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>littlemountainman blog</title>
-    <description>living in the cloud - moving to vr soon</description>
-    <link>http://localhost:4000/</link>
-    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 12 May 2020 09:18:23 +0200</pubDate>
-    <lastBuildDate>Tue, 12 May 2020 09:18:23 +0200</lastBuildDate>
-    <generator>Jekyll v4.0.0</generator>
+    <description>student, nomadic researcher in machine learning</description>
+    <link>http://littlemountainman.github.io/</link>
+    <atom:link href="http://littlemountainman.github.io/feed.xml" rel="self" type="application/rss+xml" />
+    <pubDate>Sun, 23 Aug 2020 11:22:27 +0200</pubDate>
+    <lastBuildDate>Sun, 23 Aug 2020 11:22:27 +0200</lastBuildDate>
+    <generator>Jekyll v3.0.1</generator>
     
       <item>
         <title>Openpilot, its model and driving in GTA</title>
-        <description>&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+        <description>&lt;p&gt;If you want this in your real car, check &lt;a href=&quot;https://comma.ai/shop/products/comma-two-devkit&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 &lt;p&gt;First off let me give you an introduction about openpilot, openpilot is a open source self driving car software developed by &lt;a href=&quot;https://comma.ai/&quot;&gt;comma.ai&lt;/a&gt;. Openpilot now supports 40 of the most popular cars in the world, inlcuding Toyotas, Hondas, Acuras and many more. Openpilot is a open source project on GitHub made for people to contribute, there are also several bounties for it, that you as a developer can claim in order to get a little reward for your work. It aims to be the Android for self driving cars and this is true already supporting as mentioned above many of the most popular cars in the world.&lt;/p&gt;
 
 &lt;h2 id=&quot;the-openpilot-model&quot;&gt;The openpilot model&lt;/h2&gt;
@@ -301,8 +303,8 @@ ________________________________________________________________________________
 
 </description>
         <pubDate>Tue, 12 May 2020 00:00:00 +0200</pubDate>
-        <link>http://localhost:4000/2020/05/12/openpilot/</link>
-        <guid isPermaLink="true">http://localhost:4000/2020/05/12/openpilot/</guid>
+        <link>http://littlemountainman.github.io/2020/05/12/openpilot/</link>
+        <guid isPermaLink="true">http://littlemountainman.github.io/2020/05/12/openpilot/</guid>
         
         
       </item>
@@ -351,22 +353,20 @@ model.add(Dense(3))
 &lt;h2 id=&quot;results&quot;&gt;Results&lt;/h2&gt;
 &lt;p&gt;So after a long time of trying things out and throwing them away again. So far with the resources I had for training I am pretty happy with the results. Look at them yourself!&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://github.com/littlemountainman/selfdrive/raw/master/drivingman.gif&quot; alt=&quot;driving&quot; /&gt;
+&lt;p&gt;&lt;img src=&quot;https://github.com/littlemountainman/selfdrive/raw/master/drivingman.gif&quot; alt=&quot;driving&quot; /&gt;&lt;br /&gt;
 That is just lane keeping so far but it does quite a good job at doing it. It is still a bit weak when wanting to predict the angle when there is an intersection and it doesn’t see the next road and say there is an highway exit.&lt;/p&gt;
 
 &lt;h2 id=&quot;future-goals&quot;&gt;Future goals&lt;/h2&gt;
-&lt;p&gt;I definitely want to improve the project and keep working on it:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Implementing SLAM (Simultaneous localization and mapping), sadly a good slam system is very computing intensive and does not fit in well with running it on a mobile phone.&lt;/li&gt;
-  &lt;li&gt;Traffic light and sign detection. I already have a basic NN for traffic ligths but it is not yet performing the way I would want it to. Traffic signs are really hard since they are different from country to country.&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;I definitely want to improve the project and keep working on it:&lt;br /&gt;
+- Implementing SLAM (Simultaneous localization and mapping), sadly a good slam system is very computing intensive and does not fit in well with running it on a mobile phone. &lt;br /&gt;
+- Traffic light and sign detection. I already have a basic NN for traffic ligths but it is not yet performing the way I would want it to. Traffic signs are really hard since they are different from country to country.&lt;/p&gt;
 
 &lt;p&gt;Thank you for reading this little post and for more updates on the project follow me on &lt;a href=&quot;https://twitter.com/littlemtman&quot;&gt;Twitter&lt;/a&gt;.&lt;/p&gt;
 
 </description>
         <pubDate>Wed, 27 Nov 2019 00:00:00 +0100</pubDate>
-        <link>http://localhost:4000/2019/11/27/selfdrivingfun/</link>
-        <guid isPermaLink="true">http://localhost:4000/2019/11/27/selfdrivingfun/</guid>
+        <link>http://littlemountainman.github.io/2019/11/27/selfdrivingfun/</link>
+        <guid isPermaLink="true">http://littlemountainman.github.io/2019/11/27/selfdrivingfun/</guid>
         
         
       </item>
