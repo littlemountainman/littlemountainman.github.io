@@ -1,6 +1,7 @@
 ---
 layout: page
 permalink: /priv/
+exclude: true
 ---
 
 ## Privacy Policy
