@@ -1,4 +1,6 @@
-I"y<h2 id="introduction">Introduction</h2>
+I"…y<p>If you want this in your real car, check <a href="https://comma.ai/shop/products/comma-two-devkit">here</a>.</p>
+
+<h2 id="introduction">Introduction</h2>
 <p>First off let me give you an introduction about openpilot, openpilot is a open source self driving car software developed by <a href="https://comma.ai/">comma.ai</a>. Openpilot now supports 40 of the most popular cars in the world, inlcuding Toyotas, Hondas, Acuras and many more. Openpilot is a open source project on GitHub made for people to contribute, there are also several bounties for it, that you as a developer can claim in order to get a little reward for your work. It aims to be the Android for self driving cars and this is true already supporting as mentioned above many of the most popular cars in the world.</p>
 
 <h2 id="the-openpilot-model">The openpilot model</h2>

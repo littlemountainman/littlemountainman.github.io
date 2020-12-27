@@ -3,11 +3,11 @@
   <channel>
     <title>littlemountainman blog</title>
     <description>student, nomadic researcher in machine learning</description>
-    <link>http://littlemountainman.github.io/</link>
-    <atom:link href="http://littlemountainman.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 23 Aug 2020 18:13:41 +0200</pubDate>
-    <lastBuildDate>Sun, 23 Aug 2020 18:13:41 +0200</lastBuildDate>
-    <generator>Jekyll v3.0.1</generator>
+    <link>http://localhost:4000/</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
+    <pubDate>Sun, 27 Dec 2020 11:16:01 +0100</pubDate>
+    <lastBuildDate>Sun, 27 Dec 2020 11:16:01 +0100</lastBuildDate>
+    <generator>Jekyll v4.0.1</generator>
     
       <item>
         <title>Openpilot, its model and driving in GTA</title>
@@ -303,8 +303,8 @@ ________________________________________________________________________________
 
 </description>
         <pubDate>Tue, 12 May 2020 00:00:00 +0200</pubDate>
-        <link>http://littlemountainman.github.io/2020/05/12/openpilot/</link>
-        <guid isPermaLink="true">http://littlemountainman.github.io/2020/05/12/openpilot/</guid>
+        <link>http://localhost:4000/2020/05/12/openpilot/</link>
+        <guid isPermaLink="true">http://localhost:4000/2020/05/12/openpilot/</guid>
         
         
       </item>
@@ -353,20 +353,22 @@ model.add(Dense(3))
 &lt;h2 id=&quot;results&quot;&gt;Results&lt;/h2&gt;
 &lt;p&gt;So after a long time of trying things out and throwing them away again. So far with the resources I had for training I am pretty happy with the results. Look at them yourself!&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://github.com/littlemountainman/selfdrive/raw/master/drivingman.gif&quot; alt=&quot;driving&quot; /&gt;&lt;br /&gt;
+&lt;p&gt;&lt;img src=&quot;https://github.com/littlemountainman/selfdrive/raw/master/drivingman.gif&quot; alt=&quot;driving&quot; /&gt;
 That is just lane keeping so far but it does quite a good job at doing it. It is still a bit weak when wanting to predict the angle when there is an intersection and it doesn’t see the next road and say there is an highway exit.&lt;/p&gt;
 
 &lt;h2 id=&quot;future-goals&quot;&gt;Future goals&lt;/h2&gt;
-&lt;p&gt;I definitely want to improve the project and keep working on it:&lt;br /&gt;
-- Implementing SLAM (Simultaneous localization and mapping), sadly a good slam system is very computing intensive and does not fit in well with running it on a mobile phone. &lt;br /&gt;
-- Traffic light and sign detection. I already have a basic NN for traffic ligths but it is not yet performing the way I would want it to. Traffic signs are really hard since they are different from country to country.&lt;/p&gt;
+&lt;p&gt;I definitely want to improve the project and keep working on it:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Implementing SLAM (Simultaneous localization and mapping), sadly a good slam system is very computing intensive and does not fit in well with running it on a mobile phone.&lt;/li&gt;
+  &lt;li&gt;Traffic light and sign detection. I already have a basic NN for traffic ligths but it is not yet performing the way I would want it to. Traffic signs are really hard since they are different from country to country.&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;p&gt;Thank you for reading this little post and for more updates on the project follow me on &lt;a href=&quot;https://twitter.com/littlemtman&quot;&gt;Twitter&lt;/a&gt;.&lt;/p&gt;
 
 </description>
         <pubDate>Wed, 27 Nov 2019 00:00:00 +0100</pubDate>
-        <link>http://littlemountainman.github.io/2019/11/27/selfdrivingfun/</link>
-        <guid isPermaLink="true">http://littlemountainman.github.io/2019/11/27/selfdrivingfun/</guid>
+        <link>http://localhost:4000/2019/11/27/selfdrivingfun/</link>
+        <guid isPermaLink="true">http://localhost:4000/2019/11/27/selfdrivingfun/</guid>
         
         
       </item>
