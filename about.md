@@ -13,7 +13,6 @@ So I have been doing that since then in my free time besides school.Back then I 
 
 ## Contact me 
 
-Email: leon.hillmann@gymerg.de
 
 Twitter (DMs are open): @littlemtman
 
