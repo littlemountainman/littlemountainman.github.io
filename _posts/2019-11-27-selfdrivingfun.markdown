@@ -6,7 +6,7 @@ excerpt: "Self driving cars are a lot of fun when you program one yourself with 
 ---
 
 
-Sourc code can be found [here.](https://github.com/littlemountainman/selfdrive)
+Source code can be found [here.](https://github.com/littlemountainman/selfdrive)
 
 ## Introduction
 At the current state all we can talk about is Level 2 autonomy. Tesla is already doing a pretty good job at developing and actually shipping Level 2 self driving or rather driver assistance systems. A few days ago [@karpathy](https://twitter.com/karpathy) presented their workflow with PyTorch and also said some numbers, to train the Autopilot system with all it neural networks you would have to spend 70,000 hours with a decent gpu - that is around 8 years (depending on which GPU you are using). In total the Autopilot is a system of 48 Neural Networks. When we compare this to what I will show you, you are gonna see that this is insane.(Tesla really does a great job). I developed a model for steering, gas and brake for one camera.
