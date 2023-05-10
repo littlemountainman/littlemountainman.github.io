@@ -1,10 +1,10 @@
 # Site settings
 title: littlemountainman blog
 email: 
-description: "student, nomadic researcher in machine learning"
+description: "student, nomad in machine learning"
 baseurl: ""
 url: "http://littlemountainman.github.io"
-twitter_username: littlemtman
+twitter_username: leonhillmann
 github_username:  littlemountainman
 
 # Build settings
