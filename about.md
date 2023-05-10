@@ -10,6 +10,7 @@ I am Leon Hillmann, 18 years old and I like working on computers.
 Press around me: 
 
 **#1 on Hacker News**:
+
 https://news.ycombinator.com/item?id=23154886
 
 **Vice Self Driving Car**:
