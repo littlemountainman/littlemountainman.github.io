@@ -24,6 +24,7 @@ https://www.golem.de/news/autonomes-fahren-entwickler-baut-selbstfahrendes-auto-
 ## Contact me 
 
 
-Twitter (DMs are open): @littlemtman
+Twitter (DMs are open): @leonhillmann
+
 Email: leon.hillmann [at] gmail .com
 
