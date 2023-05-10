@@ -7,6 +7,19 @@ permalink: /about/
 
 I am Leon Hillmann, 18 years old and I like working on computers.
 
+Press around me: 
+
+**#1 on Hacker News**:
+https://news.ycombinator.com/item?id=23154886
+
+**Vice Self Driving Car**:
+
+https://www.vice.com/en/article/4aydxn/teen-programmer-uses-real-self-driving-car-tech-in-gta-v
+
+**Golem German Tech News**:
+
+https://www.golem.de/news/autonomes-fahren-entwickler-baut-selbstfahrendes-auto-fuer-gta-v-2005-148446.html
+
 ## Contact me 
 
 
