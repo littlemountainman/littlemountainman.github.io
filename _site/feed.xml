@@ -5,13 +5,13 @@
     <description>student, nomad in machine learning</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 26 Jun 2023 17:30:53 +0200</pubDate>
-    <lastBuildDate>Mon, 26 Jun 2023 17:30:53 +0200</lastBuildDate>
+    <pubDate>Mon, 26 Jun 2023 17:31:35 +0200</pubDate>
+    <lastBuildDate>Mon, 26 Jun 2023 17:31:35 +0200</lastBuildDate>
     <generator>Jekyll v3.8.6</generator>
     
       <item>
         <title>Hybrid SNN/ANN for Chest X-Ray (Pneumonia) classification using spiking activations</title>
-        <description>&lt;p&gt;&lt;a href=&quot;https://github.com/littlemountainman/SNNXray&quot;&gt;&lt;strong&gt;Code available here&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+        <description>&lt;p&gt;&lt;a href=&quot;https://github.com/littlemountainman/SNNXray&quot;&gt;&lt;strong&gt;!!! Code available here !!!&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;Spike neural netoworks (SNNs) are neural networks that aim to mimic natural neural networks more closely than artificial neural networks do. The idea is that neurons in the SNN transmit information only when a membrane potential, an intrinsic property of the neuron related to its membrane electrical charge, reaches a predetermined value, known as the threshold, as opposed to transmitting information at each propagation cycle, as it does in typical multi-layer perceptron networks. The neuron fires when the membrane potential crosses the threshold, sending a signal to nearby neurons that cause those neurons to change their membrane potentials in response to the signal. Spiking neuron model is another name for a neuron model that fires at the exact moment of threshold crossing.&lt;/p&gt;
 
