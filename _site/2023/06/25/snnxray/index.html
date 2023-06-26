@@ -4,10 +4,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Leon Hillmann blog</title>
+    <title>Hybrid SNN/ANN for Chest X-Ray (Pneumonia) classification using spiking activations</title>
     <meta name="viewport" content="width=device-width">
     <meta name="description" content="student, nomad in machine learning">
-    <link rel="canonical" href="http://localhost:4000/priv/">
+    <link rel="canonical" href="http://localhost:4000/2023/06/25/snnxray/">
     <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Leon Hillmann blog posts" />
 
     <!-- Custom CSS -->
@@ -82,88 +82,65 @@
       <div class="post">
 
   <header class="post-header">
-    <h1></h1>
+    <h1>Hybrid SNN/ANN for Chest X-Ray (Pneumonia) classification using spiking activations</h1>
+    <p class="meta">Jun 25, 2023</p>
   </header>
 
   <article class="post-content">
-  <h2 id="privacy-policy">Privacy Policy</h2>
+  <p>Spike neural netoworks (SNNs) are neural networks that aim to mimic natural neural networks more closely than artificial neural networks do. The idea is that neurons in the SNN transmit information only when a membrane potential, an intrinsic property of the neuron related to its membrane electrical charge, reaches a predetermined value, known as the threshold, as opposed to transmitting information at each propagation cycle, as it does in typical multi-layer perceptron networks. The neuron fires when the membrane potential crosses the threshold, sending a signal to nearby neurons that cause those neurons to change their membrane potentials in response to the signal. Spiking neuron model is another name for a neuron model that fires at the exact moment of threshold crossing.</p>
 
-<p>littlemountainman built the littlemountainman app as a Free app. This SERVICE is provided by littlemountainman at no cost and is intended for use as is.</p>
+<p>In the code corresponding to this article, a spiking activation function was used. It uses the spiking temporal activation on the forward pass and a differentiable non-spiking traditional <code class="highlighter-rouge">max(0,x)</code> ReLu function.</p>
 
-<p>This page is used to inform visitors regarding my policies with the collection, use, and disclosure of Personal Information if anyone decided to use my Service.</p>
+<h3 id="data">Data</h3>
 
-<p>If you choose to use my Service, then you agree to the collection and use of information in relation to this policy. The Personal Information that I collect is used for providing and improving the Service. I will not use or share your information with anyone except as described in this Privacy Policy.</p>
+<p><img src="/assets/pneumoniadata.png" alt="pneumoniadata" /></p>
 
-<p>The terms used in this Privacy Policy have the same meanings as in our Terms and Conditions, which is accessible at littlemountainman unless otherwise defined in this Privacy Policy.</p>
+<p>Dataset was made available by “paultimothymooney” on <a href="https://www.kaggle.com/datasets/paultimothymooney/chest-xray-pneumonia">Kaggle</a>. There are 5,863 images in the dataset lables “normal” and “Pneumonia”. Chest X-ray images (anterior-posterior) were selected from retrospective cohorts of pediatric patients of one to five years old from Guangzhou Women and Children’s Medical Center, Guangzhou. All chest X-ray imaging was performed as part of patients’ routine clinical care. The dataset was <a href="https://www.cell.com/cell/fulltext/S0092-8674(18)30154-5">originally used here in the paper by Daniel S. Kermany et. al.</a>.</p>
 
-<p><strong>Information Collection and Use</strong></p>
+<h3 id="results">Results</h3>
 
-<p>For a better experience, while using our Service, I may require you to provide us with certain personally identifiable information, including but not limited to None. The information that I request will be retained on your device and is not collected by me in any way.</p>
+<p>Traditional model without spiking activation achieved a <code class="highlighter-rouge">F1 score of ~0.68</code></p>
 
-<p>The app does use third party services that may collect information used to identify you.</p>
+<p><img src="/assets/tradmodel.png" alt="tradmodel" /></p>
 
-<p>Link to privacy policy of third party service providers used by the app</p>
+<p>Spike neural network model with spiking activation achieved a <code class="highlighter-rouge">F1 score of ~0.77</code></p>
 
-<ul>
-  <li><a href="https://www.google.com/policies/privacy/">Google Play Services</a></li>
-  <li><a href="https://support.google.com/admob/answer/6128543?hl=en">AdMob</a></li>
-  <li><a href="https://firebase.google.com/policies/analytics">Firebase Analytics</a></li>
-</ul>
+<p><img src="/assets/snnmodel.png" alt="snnmodel" /></p>
 
-<p><strong>Log Data</strong></p>
+<p>Therfore the spiking model delivered around <b> ~13 %</b> better performance than the model without the temporal spiking activation function.</p>
 
-<p>I want to inform you that whenever you use my Service, in a case of an error in the app I collect data and information (through third party products) on your phone called Log Data. This Log Data may include information such as your device Internet Protocol (“IP”) address, device name, operating system version, the configuration of the app when utilizing my Service, the time and date of your use of the Service, and other statistics.</p>
+<h3 id="comments-and-conclusion">Comments and conclusion</h3>
 
-<p><strong>Cookies</strong></p>
+<p>SNNs offer enormous promise for resolving challenging time-dependent issues, however I found that several key techniques should be used in order to achieve greatest possible results for production use. Firstly in order to determine the optimal length of time that is represented by one time step, as this may vary heavily for diffent use cases. Grid search is a possible starter, for this project I found optimal performance at around 2 seconds. Secondly, the performance advantage over the traditional ANN vanished as when adjusting the number of parameters of the model grew.</p>
 
-<p>Cookies are files with a small amount of data that are commonly used as anonymous unique identifiers. These are sent to your browser from the websites that you visit and are stored on your device’s internal memory.</p>
-
-<p>This Service does not use these “cookies” explicitly. However, the app may use third party code and libraries that use “cookies” to collect information and improve their services. You have the option to either accept or refuse these cookies and know when a cookie is being sent to your device. If you choose to refuse our cookies, you may not be able to use some portions of this Service.</p>
-
-<p><strong>Service Providers</strong></p>
-
-<p>I may employ third-party companies and individuals due to the following reasons:</p>
-
-<ul>
-  <li>To facilitate our Service;</li>
-  <li>To provide the Service on our behalf;</li>
-  <li>To perform Service-related services; or</li>
-  <li>To assist us in analyzing how our Service is used.</li>
-</ul>
-
-<p>I want to inform users of this Service that these third parties have access to your Personal Information. The reason is to perform the tasks assigned to them on our behalf. However, they are obligated not to disclose or use the information for any other purpose.</p>
-
-<p><strong>Security</strong></p>
-
-<p>I value your trust in providing us your Personal Information, thus we are striving to use commercially acceptable means of protecting it. But remember that no method of transmission over the internet, or method of electronic storage is 100% secure and reliable, and I cannot guarantee its absolute security.</p>
-
-<p><strong>Links to Other Sites</strong></p>
-
-<p>This Service may contain links to other sites. If you click on a third-party link, you will be directed to that site. Note that these external sites are not operated by me. Therefore, I strongly advise you to review the Privacy Policy of these websites. I have no control over and assume no responsibility for the content, privacy policies, or practices of any third-party sites or services.</p>
-
-<p><strong>Children’s Privacy</strong></p>
-
-<p>These Services do not address anyone under the age of 13. I do not knowingly collect personally identifiable information from children under 13. In the case I discover that a child under 13 has provided me with personal information, I immediately delete this from our servers. If you are a parent or guardian and you are aware that your child has provided us with personal information, please contact me so that I will be able to do necessary actions.</p>
-
-<p><strong>Changes to This Privacy Policy</strong></p>
-
-<p>I may update our Privacy Policy from time to time. Thus, you are advised to review this page periodically for any changes. I will notify you of any changes by posting the new Privacy Policy on this page. These changes are effective immediately after they are posted on this page.</p>
-
-<p><strong>Contact Us</strong></p>
-
-<p>If you have any questions or suggestions about my Privacy Policy, do not hesitate to contact me at littlemountainmanleon@gmail.com.</p>
-
-<p>This privacy policy page was created at <a href="https://privacypolicytemplate.net">privacypolicytemplate.net</a> and modified/generated by <a href="https://app-privacy-policy-generator.firebaseapp.com/">App Privacy Policy Generator</a></p>
 
   </article>
 
-  <!-- disqus comments -->
- 
+  <div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://littlemountainman.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  <!-- mathjax -->
   
-</div>
-
-<!-- mathjax -->
-
+  
+  <!-- disqus comments -->
 
       </div>
       

@@ -1,13 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>littlemountainman blog</title>
-    <description>student, nomadic researcher in machine learning</description>
+    <title>Leon Hillmann blog</title>
+    <description>student, nomad in machine learning</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 27 Dec 2020 11:16:01 +0100</pubDate>
-    <lastBuildDate>Sun, 27 Dec 2020 11:16:01 +0100</lastBuildDate>
-    <generator>Jekyll v4.0.1</generator>
+    <pubDate>Mon, 26 Jun 2023 17:14:55 +0200</pubDate>
+    <lastBuildDate>Mon, 26 Jun 2023 17:14:55 +0200</lastBuildDate>
+    <generator>Jekyll v3.8.6</generator>
+    
+      <item>
+        <title>Hybrid SNN/ANN for Chest X-Ray (Pneumonia) classification using spiking activations</title>
+        <description>&lt;p&gt;Spike neural netoworks (SNNs) are neural networks that aim to mimic natural neural networks more closely than artificial neural networks do. The idea is that neurons in the SNN transmit information only when a membrane potential, an intrinsic property of the neuron related to its membrane electrical charge, reaches a predetermined value, known as the threshold, as opposed to transmitting information at each propagation cycle, as it does in typical multi-layer perceptron networks. The neuron fires when the membrane potential crosses the threshold, sending a signal to nearby neurons that cause those neurons to change their membrane potentials in response to the signal. Spiking neuron model is another name for a neuron model that fires at the exact moment of threshold crossing.&lt;/p&gt;
+
+&lt;p&gt;In the code corresponding to this article, a spiking activation function was used. It uses the spiking temporal activation on the forward pass and a differentiable non-spiking traditional &lt;code class=&quot;highlighter-rouge&quot;&gt;max(0,x)&lt;/code&gt; ReLu function.&lt;/p&gt;
+
+&lt;h3 id=&quot;data&quot;&gt;Data&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/pneumoniadata.png&quot; alt=&quot;pneumoniadata&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Dataset was made available by “paultimothymooney” on &lt;a href=&quot;https://www.kaggle.com/datasets/paultimothymooney/chest-xray-pneumonia&quot;&gt;Kaggle&lt;/a&gt;. There are 5,863 images in the dataset lables “normal” and “Pneumonia”. Chest X-ray images (anterior-posterior) were selected from retrospective cohorts of pediatric patients of one to five years old from Guangzhou Women and Children’s Medical Center, Guangzhou. All chest X-ray imaging was performed as part of patients’ routine clinical care. The dataset was &lt;a href=&quot;https://www.cell.com/cell/fulltext/S0092-8674(18)30154-5&quot;&gt;originally used here in the paper by Daniel S. Kermany et. al.&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;results&quot;&gt;Results&lt;/h3&gt;
+
+&lt;p&gt;Traditional model without spiking activation achieved a &lt;code class=&quot;highlighter-rouge&quot;&gt;F1 score of ~0.68&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/tradmodel.png&quot; alt=&quot;tradmodel&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Spike neural network model with spiking activation achieved a &lt;code class=&quot;highlighter-rouge&quot;&gt;F1 score of ~0.77&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/snnmodel.png&quot; alt=&quot;snnmodel&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Therfore the spiking model delivered around &lt;b&gt; ~13 %&lt;/b&gt; better performance than the model without the temporal spiking activation function.&lt;/p&gt;
+
+&lt;h3 id=&quot;comments-and-conclusion&quot;&gt;Comments and conclusion&lt;/h3&gt;
+
+&lt;p&gt;SNNs offer enormous promise for resolving challenging time-dependent issues, however I found that several key techniques should be used in order to achieve greatest possible results for production use. Firstly in order to determine the optimal length of time that is represented by one time step, as this may vary heavily for diffent use cases. Grid search is a possible starter, for this project I found optimal performance at around 2 seconds. Secondly, the performance advantage over the traditional ANN vanished as when adjusting the number of parameters of the model grew.&lt;/p&gt;
+
+</description>
+        <pubDate>Sun, 25 Jun 2023 00:00:00 +0200</pubDate>
+        <link>http://localhost:4000/2023/06/25/snnxray/</link>
+        <guid isPermaLink="true">http://localhost:4000/2023/06/25/snnxray/</guid>
+        
+        
+      </item>
     
       <item>
         <title>Openpilot, its model and driving in GTA</title>
@@ -311,7 +347,7 @@ ________________________________________________________________________________
     
       <item>
         <title>Self driving cars are fun!</title>
-        <description>&lt;p&gt;Sourc code can be found &lt;a href=&quot;https://github.com/littlemountainman/selfdrive&quot;&gt;here.&lt;/a&gt;&lt;/p&gt;
+        <description>&lt;p&gt;Source code can be found &lt;a href=&quot;https://github.com/littlemountainman/selfdrive&quot;&gt;here.&lt;/a&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 &lt;p&gt;At the current state all we can talk about is Level 2 autonomy. Tesla is already doing a pretty good job at developing and actually shipping Level 2 self driving or rather driver assistance systems. A few days ago &lt;a href=&quot;https://twitter.com/karpathy&quot;&gt;@karpathy&lt;/a&gt; presented their workflow with PyTorch and also said some numbers, to train the Autopilot system with all it neural networks you would have to spend 70,000 hours with a decent gpu - that is around 8 years (depending on which GPU you are using). In total the Autopilot is a system of 48 Neural Networks. When we compare this to what I will show you, you are gonna see that this is insane.(Tesla really does a great job). I developed a model for steering, gas and brake for one camera.&lt;/p&gt;
