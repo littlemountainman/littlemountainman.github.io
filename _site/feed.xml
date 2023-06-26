@@ -5,8 +5,8 @@
     <description>student, nomad in machine learning</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 26 Jun 2023 17:14:55 +0200</pubDate>
-    <lastBuildDate>Mon, 26 Jun 2023 17:14:55 +0200</lastBuildDate>
+    <pubDate>Mon, 26 Jun 2023 17:20:11 +0200</pubDate>
+    <lastBuildDate>Mon, 26 Jun 2023 17:20:11 +0200</lastBuildDate>
     <generator>Jekyll v3.8.6</generator>
     
       <item>
@@ -36,6 +36,8 @@
 &lt;h3 id=&quot;comments-and-conclusion&quot;&gt;Comments and conclusion&lt;/h3&gt;
 
 &lt;p&gt;SNNs offer enormous promise for resolving challenging time-dependent issues, however I found that several key techniques should be used in order to achieve greatest possible results for production use. Firstly in order to determine the optimal length of time that is represented by one time step, as this may vary heavily for diffent use cases. Grid search is a possible starter, for this project I found optimal performance at around 2 seconds. Secondly, the performance advantage over the traditional ANN vanished as when adjusting the number of parameters of the model grew.&lt;/p&gt;
+
+&lt;p&gt;In conclusion, the project offers a little insight in the world of spiking neural networks and how they could be used in practice, next to ANNs. Likely they will not replace classic ANNs anytime soon, however it could become the state of the art approach for time-dependent problems. The range of applications are incredibly wide, ranging from medicine to defense over financial markets. The real deal, however is running these algorithms on special NPU or neuromorphic hardware.&lt;/p&gt;
 
 </description>
         <pubDate>Sun, 25 Jun 2023 00:00:00 +0200</pubDate>
