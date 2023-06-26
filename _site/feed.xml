@@ -5,13 +5,15 @@
     <description>student, nomad in machine learning</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 26 Jun 2023 17:20:11 +0200</pubDate>
-    <lastBuildDate>Mon, 26 Jun 2023 17:20:11 +0200</lastBuildDate>
+    <pubDate>Mon, 26 Jun 2023 17:30:53 +0200</pubDate>
+    <lastBuildDate>Mon, 26 Jun 2023 17:30:53 +0200</lastBuildDate>
     <generator>Jekyll v3.8.6</generator>
     
       <item>
         <title>Hybrid SNN/ANN for Chest X-Ray (Pneumonia) classification using spiking activations</title>
-        <description>&lt;p&gt;Spike neural netoworks (SNNs) are neural networks that aim to mimic natural neural networks more closely than artificial neural networks do. The idea is that neurons in the SNN transmit information only when a membrane potential, an intrinsic property of the neuron related to its membrane electrical charge, reaches a predetermined value, known as the threshold, as opposed to transmitting information at each propagation cycle, as it does in typical multi-layer perceptron networks. The neuron fires when the membrane potential crosses the threshold, sending a signal to nearby neurons that cause those neurons to change their membrane potentials in response to the signal. Spiking neuron model is another name for a neuron model that fires at the exact moment of threshold crossing.&lt;/p&gt;
+        <description>&lt;p&gt;&lt;a href=&quot;https://github.com/littlemountainman/SNNXray&quot;&gt;&lt;strong&gt;Code available here&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Spike neural netoworks (SNNs) are neural networks that aim to mimic natural neural networks more closely than artificial neural networks do. The idea is that neurons in the SNN transmit information only when a membrane potential, an intrinsic property of the neuron related to its membrane electrical charge, reaches a predetermined value, known as the threshold, as opposed to transmitting information at each propagation cycle, as it does in typical multi-layer perceptron networks. The neuron fires when the membrane potential crosses the threshold, sending a signal to nearby neurons that cause those neurons to change their membrane potentials in response to the signal. Spiking neuron model is another name for a neuron model that fires at the exact moment of threshold crossing.&lt;/p&gt;
 
 &lt;p&gt;In the code corresponding to this article, a spiking activation function was used. It uses the spiking temporal activation on the forward pass and a differentiable non-spiking traditional &lt;code class=&quot;highlighter-rouge&quot;&gt;max(0,x)&lt;/code&gt; ReLu function.&lt;/p&gt;
 
@@ -31,13 +33,13 @@
 
 &lt;p&gt;&lt;img src=&quot;/assets/snnmodel.png&quot; alt=&quot;snnmodel&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;Therfore the spiking model delivered around &lt;b&gt; ~13 %&lt;/b&gt; better performance than the model without the temporal spiking activation function.&lt;/p&gt;
+&lt;p&gt;Therfore the spiking model delivered around &lt;code class=&quot;highlighter-rouge&quot;&gt;~13%&lt;/code&gt; better performance than the model without the temporal spiking activation function.&lt;/p&gt;
 
 &lt;h3 id=&quot;comments-and-conclusion&quot;&gt;Comments and conclusion&lt;/h3&gt;
 
-&lt;p&gt;SNNs offer enormous promise for resolving challenging time-dependent issues, however I found that several key techniques should be used in order to achieve greatest possible results for production use. Firstly in order to determine the optimal length of time that is represented by one time step, as this may vary heavily for diffent use cases. Grid search is a possible starter, for this project I found optimal performance at around 2 seconds. Secondly, the performance advantage over the traditional ANN vanished as when adjusting the number of parameters of the model grew.&lt;/p&gt;
+&lt;p&gt;SNNs offer enormous promise for resolving challenging time-dependent issues, however I found that several key techniques should be used in order to achieve greatest possible results for production use. Firstly in order to determine the optimal length of time that is represented by one time step, as this may vary heavily for diffent use cases. Grid search is a possible starter, for this project I found optimal performance at around 2 seconds. Secondly, the performance advantage over the traditional ANN vanished as when adjusting the number of parameters of the model grew. However further experiments should be conducted on the matter to accurately determine effects and measure them.&lt;/p&gt;
 
-&lt;p&gt;In conclusion, the project offers a little insight in the world of spiking neural networks and how they could be used in practice, next to ANNs. Likely they will not replace classic ANNs anytime soon, however it could become the state of the art approach for time-dependent problems. The range of applications are incredibly wide, ranging from medicine to defense over financial markets. The real deal, however is running these algorithms on special NPU or neuromorphic hardware.&lt;/p&gt;
+&lt;p&gt;In conclusion, the project offers a little insight into the world of spiking neural networks and how they could be used in practice, next to ANNs. Likely they will not replace classic ANNs anytime soon, however it could become the state of the art approach for time-dependent problems. The range of applications are incredibly wide, ranging from medicine to defense over financial markets. The real deal, however is running these algorithms on special NPU or neuromorphic hardware, such as the Intel Loihi.&lt;/p&gt;
 
 </description>
         <pubDate>Sun, 25 Jun 2023 00:00:00 +0200</pubDate>
