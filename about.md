@@ -5,7 +5,7 @@ permalink: /about/
 ---
 ## About me
 
-I am Leon Hillmann, 18 years old and I like working on computers.
+I am Leon Hillmann, 18 years old and I like working on computers.Student. 
 
 Press around me: 
 
