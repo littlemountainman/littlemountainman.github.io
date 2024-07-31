@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Graph Neural Networks finding drugs for cancer HER2</title>
+    <title>Graph Neural Networks finding drugs for cancer target HER2</title>
     <meta name="viewport" content="width=device-width">
     <meta name="description" content="student, nomad in machine learning">
     <link rel="canonical" href="http://localhost:4000/2024/07/31/proteinher2/">
@@ -82,7 +82,7 @@
       <div class="post">
 
   <header class="post-header">
-    <h1>Graph Neural Networks finding drugs for cancer HER2</h1>
+    <h1>Graph Neural Networks finding drugs for cancer target HER2</h1>
     <p class="meta">Jul 31, 2024</p>
   </header>
 
@@ -125,9 +125,9 @@ Following the extraction of atom features, the next step involves constructing t
 
 <p>The proposed model for virtual screening  utilizes a graph convolutional  network (GCN) architecture to integrate previously processed graphs of ligand molecules. The model splits into two branches, a graph convolutional network  branch to process the graph data and a protein sequence branch to process the protein sequences.</p>
 
-<p>In the GCN branch, a GAT convolutional layer followed by a GCN layer is employed to capture node-node relationships and propagate information across the graph. Subsequently, global pooling is applied to extract graph-level features, which are then fed into dense layers for further refinement.</p>
+<p>In the GCN branch, a GAT convolutional layer followed by a GCN layer is employed to capture node-node relationships and propagate information across the graph. Subsequently, global pooling is applied to extract graph-level features, which are then fed into dense layers.</p>
 
-<p>For the protein sequence branch, an embedding layer first converts the protein sequence into a numerical representation. A bidirectional LSTM then captures sequential information in the protein sequence, and a 1D convolutional layer extracts features from the encoded sequence. These features are subsequently flattened and fed into dense layers for further processing.</p>
+<p>For the protein sequence branch, an embedding layer first converts the protein sequence into a numerical representation. A bidirectional LSTM then captures sequential information in the protein sequence, and a 1D convolutional layer extracts features from the encoded sequence. These features are subsequently flattened and fed into dense layers.</p>
 
 <p>Finally, the graph-level features and the protein sequence features are concatenated and fed into several dense layers with ReLU activation and dropout for learning a combined representation. The final output layer predicts the target-ligand binding affinity.</p>
 

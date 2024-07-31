@@ -1,7 +1,7 @@
 ---
 layout: post
 comments: true
-title:  "Graph Neural Networks finding drugs for cancer HER2"
+title:  "Graph Neural Networks finding drugs for cancer target HER2"
 excerpt: "Graph Neural Network for discovering novel, hopefully potent, drugs for cancer oncogenic target HER2"
 mathjax: true
 ---
@@ -47,9 +47,9 @@ Following the extraction of atom features, the next step involves constructing t
 
 The proposed model for virtual screening  utilizes a graph convolutional  network (GCN) architecture to integrate previously processed graphs of ligand molecules. The model splits into two branches, a graph convolutional network  branch to process the graph data and a protein sequence branch to process the protein sequences.
 
-In the GCN branch, a GAT convolutional layer followed by a GCN layer is employed to capture node-node relationships and propagate information across the graph. Subsequently, global pooling is applied to extract graph-level features, which are then fed into dense layers for further refinement.
+In the GCN branch, a GAT convolutional layer followed by a GCN layer is employed to capture node-node relationships and propagate information across the graph. Subsequently, global pooling is applied to extract graph-level features, which are then fed into dense layers.
 
-For the protein sequence branch, an embedding layer first converts the protein sequence into a numerical representation. A bidirectional LSTM then captures sequential information in the protein sequence, and a 1D convolutional layer extracts features from the encoded sequence. These features are subsequently flattened and fed into dense layers for further processing.
+For the protein sequence branch, an embedding layer first converts the protein sequence into a numerical representation. A bidirectional LSTM then captures sequential information in the protein sequence, and a 1D convolutional layer extracts features from the encoded sequence. These features are subsequently flattened and fed into dense layers.
 
 Finally, the graph-level features and the protein sequence features are concatenated and fed into several dense layers with ReLU activation and dropout for learning a combined representation. The final output layer predicts the target-ligand binding affinity.
 

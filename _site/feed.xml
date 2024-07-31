@@ -5,12 +5,12 @@
     <description>student, nomad in machine learning</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 31 Jul 2024 15:18:24 +0200</pubDate>
-    <lastBuildDate>Wed, 31 Jul 2024 15:18:24 +0200</lastBuildDate>
+    <pubDate>Wed, 31 Jul 2024 15:25:07 +0200</pubDate>
+    <lastBuildDate>Wed, 31 Jul 2024 15:25:07 +0200</lastBuildDate>
     <generator>Jekyll v3.9.0</generator>
     
       <item>
-        <title>Graph Neural Networks finding drugs for cancer HER2</title>
+        <title>Graph Neural Networks finding drugs for cancer target HER2</title>
         <description>&lt;script type=&quot;text/x-mathjax-config&quot;&gt;
   MathJax.Hub.Config({tex2jax: {inlineMath: [[&apos;$&apos;,&apos;$&apos;], [&apos;\\(&apos;,&apos;\\)&apos;]]}});
 &lt;/script&gt;
@@ -49,9 +49,9 @@ Following the extraction of atom features, the next step involves constructing t
 
 &lt;p&gt;The proposed model for virtual screening  utilizes a graph convolutional  network (GCN) architecture to integrate previously processed graphs of ligand molecules. The model splits into two branches, a graph convolutional network  branch to process the graph data and a protein sequence branch to process the protein sequences.&lt;/p&gt;
 
-&lt;p&gt;In the GCN branch, a GAT convolutional layer followed by a GCN layer is employed to capture node-node relationships and propagate information across the graph. Subsequently, global pooling is applied to extract graph-level features, which are then fed into dense layers for further refinement.&lt;/p&gt;
+&lt;p&gt;In the GCN branch, a GAT convolutional layer followed by a GCN layer is employed to capture node-node relationships and propagate information across the graph. Subsequently, global pooling is applied to extract graph-level features, which are then fed into dense layers.&lt;/p&gt;
 
-&lt;p&gt;For the protein sequence branch, an embedding layer first converts the protein sequence into a numerical representation. A bidirectional LSTM then captures sequential information in the protein sequence, and a 1D convolutional layer extracts features from the encoded sequence. These features are subsequently flattened and fed into dense layers for further processing.&lt;/p&gt;
+&lt;p&gt;For the protein sequence branch, an embedding layer first converts the protein sequence into a numerical representation. A bidirectional LSTM then captures sequential information in the protein sequence, and a 1D convolutional layer extracts features from the encoded sequence. These features are subsequently flattened and fed into dense layers.&lt;/p&gt;
 
 &lt;p&gt;Finally, the graph-level features and the protein sequence features are concatenated and fed into several dense layers with ReLU activation and dropout for learning a combined representation. The final output layer predicts the target-ligand binding affinity.&lt;/p&gt;
 
