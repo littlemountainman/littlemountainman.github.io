@@ -13,7 +13,7 @@ mathjax: true
 
 ## Abstract
 
-The HER2 receptor tyrosine kinase plays a crucial role in various cancers. Identifying potent inhibitors of HER2 is essential for therapeutic intervention. Virtual screening (VS) offers a method to expedite drug discovery, but traditional methods struggle to capture the complexity of protein-ligand interactions. This study investigates the potential of Graph Neural Networks (GNNs) for predicting binding affinities of compounds with the HER2 kinase. Leverage GNNs' message-passing mechanism to model the intricate spatial relationships between HER2 and potential drug candidates. This approach aims to streamline the VS process for HER2, facilitating the identification of promising drug leads and potentially enabling the repurposing of existing drugs. Finally ,presenting 5 compound which should be further investigated in-vitro.
+The HER2 receptor tyrosine kinase plays a crucial role in various cancers. Identifying potent inhibitors of HER2 is essential for therapeutic intervention. Virtual screening (VS) offers a method to expedite drug discovery, but traditional methods struggle to capture the complexity of protein-ligand interactions. This study investigates the potential of Graph Neural Networks (GNNs) for predicting binding affinities of compounds with the HER2 kinase. Leveraging GNNs' message-passing mechanism to model the intricate spatial relationships between HER2 and potential drug candidates. This approach aims to streamline the VS process for HER2, facilitating the identification of promising drug leads and potentially enabling the repurposing of existing drugs. Finally ,presenting 5 compound which should be further investigated in-vitro.
 
 ## Introduction
 
@@ -69,7 +69,9 @@ Coincidentally, the 3 proposed compounds were previously developed by GSK for an
 Low resulting values means that the drug is potent at low concentrations, and thus will show lower systemic toxicity when administered to the patient. Ergo, high binding affinity. <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9773863/#:~:text=Drug%20discovery%20and%20pharmacology%20studies,when%20administered%20to%20the%20patient.">Source</a>
 
 
+## Update
 
+Planning to release source-code soon!
 
 
 
