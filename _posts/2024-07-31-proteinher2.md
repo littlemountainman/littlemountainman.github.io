@@ -19,7 +19,7 @@ The HER2 receptor tyrosine kinase plays a crucial role in various cancers. Ident
 
 <center>
 	<img src="/assets/kinome.png" style="width:95%;height:95%;">
-    <small>31.07.2024 Taken from https://commons.wikimedia.org/wiki/File:CORALtree_kinome_phase4_inhibitors_DL20221119.svg </small>
+    <small>31.07.2024 Taken from <a href="https://commons.wikimedia.org/wiki/File:CORALtree_kinome_phase4_inhibitors_DL20221119.svg">here</a> </small>
 </center>
 
 The human kinome, encompassing receptor tyrosine kinases (RTKs) such as the ERbB family, play a critical role in various cellular processes, including growth and programmed cell death (apoptosis). Aberrations in these pathways, particularly mutations leading to the overexpression of specific RTKs, contribute to cancer development. Among these, the HER2 receptor, encoded by the ERBB2 gene, is a well-established oncogenic target owing to its role in uncontrolled cell proliferation and resistance to apoptosis. Consequently, there is significant interest in identifying potent inhibitors of HER2 for therapeutic intervention.
