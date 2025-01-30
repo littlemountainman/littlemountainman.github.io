@@ -10,7 +10,7 @@ mathjax: true
   MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 </script>
 
-** Find the source code here:** https://github.com/littlemountainman/GraphCNN_CancerHER2
+**Find the source code here:** <a href="https://github.com/littlemountainman/GraphCNN_CancerHER2">https://github.com/littlemountainman/GraphCNN_CancerHER2</a>
 
 ## Abstract
 
