@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Openpilot, its model and driving in GTA</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="student, nomad in machine learning">
+    <link rel="canonical" href="http://localhost:4000/2020/05/12/openpilot/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="littlemountainman /Leon Hillmann blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+
+    <!-- Google Analytics -->
+   <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QYVCCTT8JP"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QYVCCTT8JP');
+</script>
+
+
+</head>
+
+
+    <body>
+
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:left; margin-top:10px; margin-right:10px;">
+    <a href="/feed.xml">
+      <img src="/assets/rssicon.svg" width="40">
+    </a>
+    </div>
+
+    <a class="site-title" href="/">littlemountainman /Leon Hillmann blog</a>
+    
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+      <div class="trigger">
+        
+        
+          <a class="page-link" href="/about/">About</a>
+          
+        
+        
+          
+          
+        
+        
+          
+          
+        
+        
+        
+      </div>
+    </nav>
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>Openpilot, its model and driving in GTA</h1>
+    <p class="meta">May 12, 2020</p>
+  </header>
+
+  <article class="post-content">
+  <p>If you want this in your real car, check <a href="https://comma.ai/shop/products/comma-two-devkit">here</a>.</p>
+
+<h2 id="introduction">Introduction</h2>
+<p>First off let me give you an introduction about openpilot, openpilot is a open source self driving car software developed by <a href="https://comma.ai/">comma.ai</a>. Openpilot now supports 40 of the most popular cars in the world, inlcuding Toyotas, Hondas, Acuras and many more. Openpilot is a open source project on GitHub made for people to contribute, there are also several bounties for it, that you as a developer can claim in order to get a little reward for your work. It aims to be the Android for self driving cars and this is true already supporting as mentioned above many of the most popular cars in the world.</p>
+
+<h2 id="the-openpilot-model">The openpilot model</h2>
+<p>The openpilot model is being developed in house by comma ai but the end model files are open source and on github and are easily readable with Tensorflow. Two months back I attempted a minimal implementation of the model in pure python, all the way from predicting what the model does to parsing the output to displaying it to the user, the code for that can be found <a href="https://github.com/littlemountainman/modeld">here</a>.</p>
+
+<h3 id="input">Input</h3>
+<p>The most basic inputs are, 2 images in the yuv420p, both 6 channels, then there is a desire one hot input with shape (1,8), say if you want to do a lane change you would give the model here a different combination and it would do a lane change to the right or to the left, this was of course also used in the model training, the beautiful thing here is that is all was learned from people driving. There is also a input called traffic convention which has an input shape of (0,2) which does of course make sense because it is a one hot vector so there are 2 possibilities so left and right traffic and a (1,512) state vector which tells the model about the state from the car.</p>
+
+<h3 id="the-model">The model</h3>
+
+<p>In November of 2019, where I published my first blog post about behavioral cloning there was also a <a href="https://www.youtube.com/watch?v=oBklltKXtDE">talk</a> from Andrej Karpathy, Tesla at Pytorch Devcon, where he explained the driving models and saying everything is based off of a ResNet50, openpilot used ResNet18 for quite a while but now they switched to Efficientnet-B2 for the openpilot 0.7.5 model. The outputs are the left and right lane, a path prediction using those the steering angle for the car gets implemented in controlsd in the openpilot code. Then there are longitudinal outputs for the control over the  brake and the gas. The model has the name supercombo because it also includes a pose net used for the lead car prediction and also for velocity estimation just from the images. The desire input and state input gets passed back to the model input from the output.</p>
+
+<pre>
+__________________________________________________________________________________________________
+Layer (type)                    Output Shape         Param #     Connected to                     
+==================================================================================================
+input_imgs (InputLayer)         [(None, 12, 128, 256 0                                            
+__________________________________________________________________________________________________
+permute (Permute)               (None, 128, 256, 12) 0           input_imgs[0][0]                 
+__________________________________________________________________________________________________
+efficientnet-b2 (Model)         (None, 4, 8, 1408)   6442016     permute[0][0]                    
+__________________________________________________________________________________________________
+conv2d (Conv2D)                 (None, 4, 8, 32)     45088       efficientnet-b2[1][0]            
+__________________________________________________________________________________________________
+batch_normalization (BatchNorma (None, 4, 8, 32)     128         conv2d[0][0]                     
+__________________________________________________________________________________________________
+elu (ELU)                       (None, 4, 8, 32)     0           batch_normalization[0][0]        
+__________________________________________________________________________________________________
+desire (InputLayer)             [(None, 8)]          0                                            
+__________________________________________________________________________________________________
+traffic_convention (InputLayer) [(None, 2)]          0                                            
+__________________________________________________________________________________________________
+vision_features (Flatten)       (None, 1024)         0           elu[0][0]                        
+__________________________________________________________________________________________________
+snpe_desire_pleaser (Dense)     (None, 8)            72          desire[0][0]                     
+__________________________________________________________________________________________________
+snpe_traffic_pleaser (Dense)    (None, 2)            6           traffic_convention[0][0]         
+__________________________________________________________________________________________________
+proc_features (Concatenate)     (None, 1034)         0           vision_features[0][0]            
+                                                                 snpe_desire_pleaser[0][0]        
+                                                                 snpe_traffic_pleaser[0][0]       
+__________________________________________________________________________________________________
+pre_gru_dense (Dense)           (None, 1024)         1059840     proc_features[0][0]              
+__________________________________________________________________________________________________
+re_lu (ReLU)                    (None, 1024)         0           pre_gru_dense[0][0]              
+__________________________________________________________________________________________________
+rnn_state (InputLayer)          [(None, 512)]        0                                            
+__________________________________________________________________________________________________
+rnn_r (Dense)                   (None, 512)          524800      re_lu[0][0]                      
+__________________________________________________________________________________________________
+rnn_rr (Dense)                  (None, 512)          262656      rnn_state[0][0]                  
+__________________________________________________________________________________________________
+snpe_pleaser (Dense)            (None, 512)          262656      rnn_state[0][0]                  
+__________________________________________________________________________________________________
+add_1 (Add)                     (None, 512)          0           rnn_r[0][0]                      
+                                                                 rnn_rr[0][0]                     
+__________________________________________________________________________________________________
+rnn_z (Dense)                   (None, 512)          524800      re_lu[0][0]                      
+__________________________________________________________________________________________________
+rnn_rz (Dense)                  (None, 512)          262656      rnn_state[0][0]                  
+__________________________________________________________________________________________________
+rnn_rh (Dense)                  (None, 512)          262656      snpe_pleaser[0][0]               
+__________________________________________________________________________________________________
+activation (Activation)         (None, 512)          0           add_1[0][0]                      
+__________________________________________________________________________________________________
+add (Add)                       (None, 512)          0           rnn_z[0][0]                      
+                                                                 rnn_rz[0][0]                     
+__________________________________________________________________________________________________
+rnn_h (Dense)                   (None, 512)          524800      re_lu[0][0]                      
+__________________________________________________________________________________________________
+multiply (Multiply)             (None, 512)          0           rnn_rh[0][0]                     
+                                                                 activation[0][0]                 
+__________________________________________________________________________________________________
+activation_1 (Activation)       (None, 512)          0           add[0][0]                        
+__________________________________________________________________________________________________
+add_2 (Add)                     (None, 512)          0           rnn_h[0][0]                      
+                                                                 multiply[0][0]                   
+__________________________________________________________________________________________________
+one_minus (Dense)               (None, 512)          262656      activation_1[0][0]               
+__________________________________________________________________________________________________
+activation_2 (Activation)       (None, 512)          0           add_2[0][0]                      
+__________________________________________________________________________________________________
+multiply_1 (Multiply)           (None, 512)          0           activation_1[0][0]               
+                                                                 snpe_pleaser[0][0]               
+__________________________________________________________________________________________________
+multiply_2 (Multiply)           (None, 512)          0           one_minus[0][0]                  
+                                                                 activation_2[0][0]               
+__________________________________________________________________________________________________
+add_3 (Add)                     (None, 512)          0           multiply_1[0][0]                 
+                                                                 multiply_2[0][0]                 
+__________________________________________________________________________________________________
+dense_1_path (Dense)            (None, 256)          131328      add_3[0][0]                      
+__________________________________________________________________________________________________
+dense_1_left_lane (Dense)       (None, 256)          131328      add_3[0][0]                      
+__________________________________________________________________________________________________
+dense_1_right_lane (Dense)      (None, 256)          131328      add_3[0][0]                      
+__________________________________________________________________________________________________
+dense_1_lead (Dense)            (None, 256)          131328      add_3[0][0]                      
+__________________________________________________________________________________________________
+dense_1_long_x (Dense)          (None, 256)          131328      add_3[0][0]                      
+__________________________________________________________________________________________________
+dense_1_long_v (Dense)          (None, 256)          131328      add_3[0][0]                      
+__________________________________________________________________________________________________
+dense_1_long_a (Dense)          (None, 256)          131328      add_3[0][0]                      
+__________________________________________________________________________________________________
+relu_1_path (ReLU)              (None, 256)          0           dense_1_path[0][0]               
+__________________________________________________________________________________________________
+relu_1_left_lane (ReLU)         (None, 256)          0           dense_1_left_lane[0][0]          
+__________________________________________________________________________________________________
+relu_1_right_lane (ReLU)        (None, 256)          0           dense_1_right_lane[0][0]         
+__________________________________________________________________________________________________
+relu_1_lead (ReLU)              (None, 256)          0           dense_1_lead[0][0]               
+__________________________________________________________________________________________________
+relu_1_long_x (ReLU)            (None, 256)          0           dense_1_long_x[0][0]             
+__________________________________________________________________________________________________
+relu_1_long_v (ReLU)            (None, 256)          0           dense_1_long_v[0][0]             
+__________________________________________________________________________________________________
+relu_1_long_a (ReLU)            (None, 256)          0           dense_1_long_a[0][0]             
+__________________________________________________________________________________________________
+dense_2_path (Dense)            (None, 256)          65792       relu_1_path[0][0]                
+__________________________________________________________________________________________________
+dense_2_left_lane (Dense)       (None, 256)          65792       relu_1_left_lane[0][0]           
+__________________________________________________________________________________________________
+dense_2_right_lane (Dense)      (None, 256)          65792       relu_1_right_lane[0][0]          
+__________________________________________________________________________________________________
+dense_2_lead (Dense)            (None, 256)          65792       relu_1_lead[0][0]                
+__________________________________________________________________________________________________
+dense_2_long_x (Dense)          (None, 256)          65792       relu_1_long_x[0][0]              
+__________________________________________________________________________________________________
+dense_2_long_v (Dense)          (None, 256)          65792       relu_1_long_v[0][0]              
+__________________________________________________________________________________________________
+dense_2_long_a (Dense)          (None, 256)          65792       relu_1_long_a[0][0]              
+__________________________________________________________________________________________________
+relu_2_path (ReLU)              (None, 256)          0           dense_2_path[0][0]               
+__________________________________________________________________________________________________
+relu_2_left_lane (ReLU)         (None, 256)          0           dense_2_left_lane[0][0]          
+__________________________________________________________________________________________________
+relu_2_right_lane (ReLU)        (None, 256)          0           dense_2_right_lane[0][0]         
+__________________________________________________________________________________________________
+relu_2_lead (ReLU)              (None, 256)          0           dense_2_lead[0][0]               
+__________________________________________________________________________________________________
+relu_2_long_x (ReLU)            (None, 256)          0           dense_2_long_x[0][0]             
+__________________________________________________________________________________________________
+relu_2_long_v (ReLU)            (None, 256)          0           dense_2_long_v[0][0]             
+__________________________________________________________________________________________________
+relu_2_long_a (ReLU)            (None, 256)          0           dense_2_long_a[0][0]             
+__________________________________________________________________________________________________
+meta_dense_1 (Dense)            (None, 256)          262400      vision_features[0][0]            
+__________________________________________________________________________________________________
+dense (Dense)                   (None, 64)           65600       vision_features[0][0]            
+__________________________________________________________________________________________________
+dense_3_path (Dense)            (None, 256)          65792       relu_2_path[0][0]                
+__________________________________________________________________________________________________
+dense_3_left_lane (Dense)       (None, 256)          65792       relu_2_left_lane[0][0]           
+__________________________________________________________________________________________________
+dense_3_right_lane (Dense)      (None, 256)          65792       relu_2_right_lane[0][0]          
+__________________________________________________________________________________________________
+dense_3_lead (Dense)            (None, 256)          65792       relu_2_lead[0][0]                
+__________________________________________________________________________________________________
+dense_3_long_x (Dense)          (None, 256)          65792       relu_2_long_x[0][0]              
+__________________________________________________________________________________________________
+dense_3_long_v (Dense)          (None, 256)          65792       relu_2_long_v[0][0]              
+__________________________________________________________________________________________________
+dense_3_long_a (Dense)          (None, 256)          65792       relu_2_long_a[0][0]              
+__________________________________________________________________________________________________
+meta_relu_1 (ReLU)              (None, 256)          0           meta_dense_1[0][0]               
+__________________________________________________________________________________________________
+elu_1 (ELU)                     (None, 64)           0           dense[0][0]                      
+__________________________________________________________________________________________________
+relu_3_path (ReLU)              (None, 256)          0           dense_3_path[0][0]               
+__________________________________________________________________________________________________
+relu_3_left_lane (ReLU)         (None, 256)          0           dense_3_left_lane[0][0]          
+__________________________________________________________________________________________________
+relu_3_right_lane (ReLU)        (None, 256)          0           dense_3_right_lane[0][0]         
+__________________________________________________________________________________________________
+relu_3_lead (ReLU)              (None, 256)          0           dense_3_lead[0][0]               
+__________________________________________________________________________________________________
+relu_3_long_x (ReLU)            (None, 256)          0           dense_3_long_x[0][0]             
+__________________________________________________________________________________________________
+relu_3_long_v (ReLU)            (None, 256)          0           dense_3_long_v[0][0]             
+__________________________________________________________________________________________________
+relu_3_long_a (ReLU)            (None, 256)          0           dense_3_long_a[0][0]             
+__________________________________________________________________________________________________
+dense_1_desire_state (Dense)    (None, 128)          65664       add_3[0][0]                      
+__________________________________________________________________________________________________
+desire_final_dense (Dense)      (None, 32)           8224        meta_relu_1[0][0]                
+__________________________________________________________________________________________________
+dense_1 (Dense)                 (None, 32)           2080        elu_1[0][0]                      
+__________________________________________________________________________________________________
+dense_final_path (Dense)        (None, 128)          32896       relu_3_path[0][0]                
+__________________________________________________________________________________________________
+dense_final_left_lane (Dense)   (None, 128)          32896       relu_3_left_lane[0][0]           
+__________________________________________________________________________________________________
+dense_final_right_lane (Dense)  (None, 128)          32896       relu_3_right_lane[0][0]          
+__________________________________________________________________________________________________
+dense_final_lead (Dense)        (None, 128)          32896       relu_3_lead[0][0]                
+__________________________________________________________________________________________________
+dense_final_long_x (Dense)      (None, 128)          32896       relu_3_long_x[0][0]              
+__________________________________________________________________________________________________
+dense_final_long_v (Dense)      (None, 128)          32896       relu_3_long_v[0][0]              
+__________________________________________________________________________________________________
+dense_final_long_a (Dense)      (None, 128)          32896       relu_3_long_a[0][0]              
+__________________________________________________________________________________________________
+relu_1_desire_state (ReLU)      (None, 128)          0           dense_1_desire_state[0][0]       
+__________________________________________________________________________________________________
+desire_reshape (Reshape)        (None, 4, 8)         0           desire_final_dense[0][0]         
+__________________________________________________________________________________________________
+elu_2 (ELU)                     (None, 32)           0           dense_1[0][0]                    
+__________________________________________________________________________________________________
+relu_final_path (ReLU)          (None, 128)          0           dense_final_path[0][0]           
+__________________________________________________________________________________________________
+relu_final_left_lane (ReLU)     (None, 128)          0           dense_final_left_lane[0][0]      
+__________________________________________________________________________________________________
+relu_final_right_lane (ReLU)    (None, 128)          0           dense_final_right_lane[0][0]     
+__________________________________________________________________________________________________
+relu_final_lead (ReLU)          (None, 128)          0           dense_final_lead[0][0]           
+__________________________________________________________________________________________________
+relu_final_long_x (ReLU)        (None, 128)          0           dense_final_long_x[0][0]         
+__________________________________________________________________________________________________
+relu_final_long_v (ReLU)        (None, 128)          0           dense_final_long_v[0][0]         
+__________________________________________________________________________________________________
+relu_final_long_a (ReLU)        (None, 128)          0           dense_final_long_a[0][0]         
+__________________________________________________________________________________________________
+final_desire_state (Dense)      (None, 8)            1032        relu_1_desire_state[0][0]        
+__________________________________________________________________________________________________
+desire_pred (Softmax)           (None, 4, 8)         0           desire_reshape[0][0]             
+__________________________________________________________________________________________________
+dense_2 (Dense)                 (None, 12)           396         elu_2[0][0]                      
+__________________________________________________________________________________________________
+path (Dense)                    (None, 385)          49665       relu_final_path[0][0]            
+__________________________________________________________________________________________________
+left_lane (Dense)               (None, 386)          49794       relu_final_left_lane[0][0]       
+__________________________________________________________________________________________________
+right_lane (Dense)              (None, 386)          49794       relu_final_right_lane[0][0]      
+__________________________________________________________________________________________________
+lead (Dense)                    (None, 58)           7482        relu_final_lead[0][0]            
+__________________________________________________________________________________________________
+long_x (Dense)                  (None, 200)          25800       relu_final_long_x[0][0]          
+__________________________________________________________________________________________________
+long_v (Dense)                  (None, 200)          25800       relu_final_long_v[0][0]          
+__________________________________________________________________________________________________
+long_a (Dense)                  (None, 200)          25800       relu_final_long_a[0][0]          
+__________________________________________________________________________________________________
+desire_state (Softmax)          (None, 8)            0           final_desire_state[0][0]         
+__________________________________________________________________________________________________
+meta (Dense)                    (None, 4)            1028        meta_relu_1[0][0]                
+__________________________________________________________________________________________________
+flatten (Flatten)               (None, 32)           0           desire_pred[0][0]                
+__________________________________________________________________________________________________
+pose (Activation)               (None, 12)           0           dense_2[0][0]                    
+==================================================================================================
+Total params: 13,146,045
+Trainable params: 13,078,413
+Non-trainable params: 67,632
+__________________________________________________________________________________________________
+</pre>
+
+<p>What you can see above is a summary of the model output by tensorflow, now let’s see what the lane and path output looks like, so here is a screenshot from my <a href="https://github.com/littlemountainman/modeld">openpilot minimal repository</a>.</p>
+
+<center>
+	<img src="/assets/openpilotout.png" style="width:95%;height:95%;" />
+</center>
+
+<p>The image might seem odd to you now but let me explain it, the path and the lanes are being predicted for the next 192 meters the y- axis are the next 192 meters, if it doesn’t make sense to you think about it and try to understand it.</p>
+
+<h2 id="gta">GTA</h2>
+
+<p>As we have now discussed some of the most important parts about the model, I can start showing you openpilot in GTA. To understand my progress on that I would like you to know how the messaging system betweet the openpilot model and the controls works. The messaging system consists of a Master and a subsriber, openpilot has a own system called msgq, in the past zmq has been used but zmq has the big issue of sending all the messages through the kernel, msgq solves this problem using a shared memory location. The msgq has multiple channels for example channels called model, sensorEvents where from one the model prediction get sent and to sensorEvents, sensor information get sent including imu and other sensors.</p>
+
+<p>So as you might see we have the first problem already, we don get any senor information out of GTA V, cars in GTA just don’t have a can bus or an imu or anything like that that would make our life easier. So because controlsd wouldn’t work without the sensors and would crash then, I first stared by making my own gta car interface which is essentially based off of a Honda civic from 2018. So rewriting that took me around 2 weeks, keep in mind I started with that project in the end of march. After those two quite frustrating weeks I had a working output for the steering angle and the gas and the brake. So using that I was able to make a simple input to GTA V and openpilot was essentially driving with the WASD keys with pynput but I wouldn’t even consider this an average 13 year old GTA online player, so I wanted to have continuous input so I tried simulating a playstation controller, turns out I spent 5 days doing useless stuff trying to get the playstation controller to work, so I switched over to a xBox controller, so that I needed to figure out now is how do I convert the model ouput to actual controller input. Turns out you need to multiply the steering output with 2,5 and add 1600 to it. For the long model the control is just just a simple if statement passed to GTA.</p>
+
+<p>So what you need for acutally need is two PCs, one PC with windows and all the xbox drivers installed and one laptop or PC with Ubuntu 16.04 running openpilot with webcam, the video stream could also be send over the network or with some kind of NDI capturing system over the network but everything was already complicated enough so that I decided to stick with the webcam, I would recommend at least a 1080p webcam for any kind of openpilot webcam things, I used a Logitech C920 but the qualitiy still wasn’t really outstanding.</p>
+
+<p>So to explain the whole flow all together:</p>
+
+<p>image -&gt; ubuntu laptop -&gt; predictions with the model -&gt; converting all the long and lateral control output -&gt; sending it over my local network with zmq to my gaming pc -&gt; gaming pc is emulating the xbox controller inputs -&gt; driving in GTA!</p>
+
+<p>So lets look at some final results:</p>
+<center>
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">A virtual self driving car, <a href="https://twitter.com/comma_ai?ref_src=twsrc%5Etfw">@comma_ai</a> openpilot driving in GTA V. Add your favourite game ! <a href="https://t.co/f5IrbbA2cY">https://t.co/f5IrbbA2cY</a> <a href="https://t.co/VozZPzkOq9">pic.twitter.com/VozZPzkOq9</a></p>&mdash; littlemountainman (@littlemtman) <a href="https://twitter.com/littlemtman/status/1257393599211352070?ref_src=twsrc%5Etfw">May 4, 2020</a></blockquote> <script async="" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</center>
+<p>Watch the video with sound, I explain something. As we all know a video tells more than a 1000 words, if you liked the post please consider adding my blog to your RSS feed or following me on twitter for more updates.</p>
+
+<p>Have a nice day !</p>
+
+<p>Leon</p>
+
+
+  </article>
+
+  <div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://littlemountainman.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  <!-- mathjax -->
+  
+  
+  <!-- disqus comments -->
+
+      </div>
+      
+    </div>
+  
+     
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <!-- <h2 class="footer-heading">littlemountainman /Leon Hillmann blog</h2> -->
+
+    <div class="footer-col-1 column">
+      <ul>
+        <li>littlemountainman /Leon Hillmann blog</li>
+        <!-- <li><a href="mailto:"></a></li> -->
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/littlemountainman">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">littlemountainman</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://twitter.com/leonhillmann">
+            <span class="icon twitter">
+              <svg version="1.1" class="twitter-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill="#C2C2C2" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809
+                c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27
+                c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767
+                c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206
+                C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271
+                c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469
+                c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/>
+              </svg>
+            </span>
+            <span class="username">leonhillmann</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">student, nomad in machine learning</p>
+    </div>
+
+  </div>
+
+</footer>
+
+    </body>
+  
+    
+</html>
