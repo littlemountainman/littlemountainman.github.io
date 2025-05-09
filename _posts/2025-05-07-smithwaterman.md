@@ -8,7 +8,7 @@ mathjax: true
 
 # Optimizing Smith-Waterman: A Deep Dive into Cache-Friendly Sequence Alignment
 
-I found myself needing a highly optimized implementation of the Smith-Waterman algorithm for a friend's bachelor thesis. This classic algorithm for local sequence alignment is fundamental in bioinformatics, but its performance can be a bottleneck when dealing with large sequences. I decided to create a modern C++23 implementation that pushes the boundaries of performance through careful cache optimization and parallel processing.
+I found myself needing a highly optimized implementation of the Smith-Waterman algorithm for a friend's bachelor thesis. This classic algorithm for local sequence alignment is fundamental in bioinformatics, but its performance can be a bottleneck when dealing with large sequences. I decided to create a modern C++20 implementation that pushes the boundaries of performance through careful cache optimization and parallel processing.
 
 ## The Challenge
 
@@ -33,7 +33,7 @@ private:
 The data is stored contiguously in memory, which means when we access elements in a row, they're likely to be in the same cache line. This simple change can reduce cache misses significantly.
 
 2. **Chunked Processing**
-I implemented a chunked processing approach that works with cache-line sized blocks of data. Modern CPUs typically have a cache line size of 64 bytes, so we process data in chunks that fit perfectly into cache lines:
+I implemented a chunked processing approach that works with cache-line sized blocks of data. Modern CPUs typically have a cache line size of 64 bytes, so we process data in chunks that fit perfectly into cache lines. This works since we usea std::string for the individual sequences, therefore each element in the string is a char of 1 byte.
 
 ```cpp
 const size_t chunk_size = 64;  // Cache line size in bytes
@@ -48,7 +48,7 @@ for (size_t i = 0; i < len; i += chunk_size) {
 This ensures we're working with data that's already in the CPU cache, reducing the number of expensive memory accesses. By aligning our processing to cache line boundaries, we minimize cache misses and make better use of the CPU's memory hierarchy.
 
 3. **Parallel Processing with Modern C++**
-The implementation uses C++23's `std::jthread` for parallel processing:
+The implementation uses C++ `std::jthread` for parallel processing:
 
 ```cpp
 std::vector<std::jthread> threads;
@@ -58,6 +58,8 @@ for (size_t t = 0; t < num_threads; ++t) {
                        start_row, end_row);
 }
 ```
+
+std::jthread is a superior alternative to std::thread, which did not join the thread automatically, but rather it would terminate the probem if you didn't join or detach manually. std::jthread, introduced in C++20, fixes the previously described issue. 
 
 ## Performance Results
 
@@ -70,12 +72,8 @@ The optimized implementation shows impressive performance improvements:
 ## The Code
 
 The complete implementation is available on GitHub. It includes:
-- A modern C++23 core implementation
+- A modern C++20 core implementation
 - Example usage with performance benchmarks
-
-## What's Next?
-
-I'm currently working on adding GPU acceleration using CUDA to push the performance even further. The goal is to make sequence alignment as fast as possible while maintaining accuracy and flexibility.
 
 ## Try It Yourself
 
