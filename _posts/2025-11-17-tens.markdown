@@ -53,23 +53,21 @@ I wrote firmware to generate monophasic pulses with adjustable frequency and dut
 
 ##  Output Stage
 
-The output stage is where the magic happens. Here, the boosted 32V rail is gated by **MOSFETs (DMN6075S)** and **BJTs (FZT853, MMBT2222)** to deliver controlled pulses to the electrodes.
+The output stage is where the magic happens. Here, the boosted 32V rail is gated by **N-Channel MOSFET (DMN6075S)** controlled by the MCU and **BJTs (FZT853, MMBT2222)** to deliver a limited controlled current. Inspired by this: https://electronics.stackexchange.com/questions/288388/help-dimensioning-resistors-in-a-two-npn-transistor-current-limiter-circuit 
 
 Each electrode channel is tied to a finger pad, with the palm serving as a common ground. The design ensures that current flows in a monophasic fashion—one direction only—avoiding the complexity of biphasic balancing but still effective for localized stimulation.
-
-
 
 
 ##  Electrode Layout
 
 The electrodes were arranged to match the hand anatomy:
 
-- Thumb, Index, Middle, Ring, Pinky each get their own channel  
-- Palm is the common ground reference  
+- Thumb, Index, Middle, Ring, Pinky each get their own channel, which are "on"
+- Palm is the common ground reference, which gets switched via the MOSFET and the MCU at a certain frequency, e.g. 14Hz.
 
 This layout allows selective stimulation of different fingers, useful for rehabilitation exercises.
 
----
+
 
 <center>
 	<img src="/assets/tens_pcb2d.png" style="width:95%;height:95%;">
@@ -86,10 +84,9 @@ So the blocks look like this:
 | Output       | MOSFETs, BJTs, TVS diodes       | Gate high-voltage pulses to electrodes   |
 | Electrodes   | Finger pads + palm ground       | Deliver stimulation to hand muscles      |
 
----
 
 ##  Reflections
 
 This project was equal parts electronics design and human-centered engineering. The monophasic approach kept things simple, and by breaking the design into clear blocks—power, control, output— I could iterate quickly.
 
-Most importantly, it’s not just a gadget.
+Most importantly, it’s not just a gadget. Total cost for the project is < $100. 
