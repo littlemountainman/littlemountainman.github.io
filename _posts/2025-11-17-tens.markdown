@@ -35,12 +35,8 @@ Why this choice?
 
 This ensured the ATmega32U4 and other logic devices always had a reliable rail, independent of battery state.
 
----
 
-
----
-
-## 🎛 Control Stage
+## Control Stage
 
 For brains, I went with the **ATmega32U4**. It’s a familiar workhorse, USB-capable, and has enough timers and PWM channels to generate the stimulation waveforms.
 
@@ -53,18 +49,18 @@ Key features in the control block:
 
 I wrote firmware to generate monophasic pulses with adjustable frequency and duty cycle. The microcontroller essentially acts as a programmable waveform generator, with parameters tuned for therapeutic comfort.
 
----
 
-## ⚡ Output Stage
+
+##  Output Stage
 
 The output stage is where the magic happens. Here, the boosted 32V rail is gated by **MOSFETs (DMN6075S)** and **BJTs (FZT853, MMBT2222)** to deliver controlled pulses to the electrodes.
 
 Each electrode channel is tied to a finger pad, with the palm serving as a common ground. The design ensures that current flows in a monophasic fashion—one direction only—avoiding the complexity of biphasic balancing but still effective for localized stimulation.
 
 
----
 
-## 🖐 Electrode Layout
+
+##  Electrode Layout
 
 The electrodes were arranged to match the hand anatomy:
 
@@ -92,7 +88,7 @@ So the blocks look like this:
 
 ---
 
-## ✍️ Reflections
+##  Reflections
 
 This project was equal parts electronics design and human-centered engineering. The monophasic approach kept things simple, and by breaking the design into clear blocks—power, control, output— I could iterate quickly.
 
